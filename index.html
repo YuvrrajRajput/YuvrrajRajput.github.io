@@ -642,68 +642,112 @@
 
   <div style="padding: 0 6vw;"><div class="divider"></div></div>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="reveal">
-      <p class="section-label">Work</p>
-      <h2 class="section-title">Projects</h2>
-    </div>
-    <div class="projects-grid">
+ <!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-grid">
 
-      <!-- Project 1 -->
-      <div class="project-card reveal">
-        <!-- REPLACE the placeholder below with an <img> tag once you have a screenshot -->
-        <!-- Example: <img src="images/superstore-preview.png" alt="Superstore Sales Analysis" class="project-img" /> -->
-        <img src="superstore.png" alt="Superstore Sales Analysis" class="project-img" />
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Excel</span>
-            <span class="tag">Power BI</span>
-            <span class="tag">DAX</span>
-          </div>
-          <h3 class="project-title">Superstore Sales Analysis</h3>
-          <p class="project-desc">
-            A full end-to-end sales analytics project built in Excel and Power BI, transforming raw transactional data into an interactive executive dashboard.
-          </p>
-          <ul class="project-bullets">
-            <li>Dynamic Excel dashboard using XLOOKUP and pivot tables</li>
-            <li>Power BI report with custom DAX measures and drill-through navigation</li>
-            <li>Segment, region, and product-level performance breakdown</li>
-          </ul>
-          <a href="https://github.com/YuvrrajRajput/superstore-sales-analysis" target="_blank" class="project-link">
-            View on GitHub &#8594;
-          </a>
+    <!-- Project 1: Canadian Bank Stock Analyzer -->
+    <div class="project-card reveal">
+      <img src="bankanalyzer.png" alt="Canadian Bank Stock Analyzer" class="project-img" />
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">yfinance</span>
         </div>
+        <h3 class="project-title">Canadian Bank Stock Analyzer</h3>
+        <p class="project-desc">
+          A Python-based financial data tool that pulls live stock data for Canada's Big Five banks, performs comparative analysis, and visualises key metrics.
+        </p>
+        <ul class="project-bullets">
+          <li>Live data retrieval via yfinance for RBC, TD, Scotiabank, BMO, and CIBC</li>
+          <li>Three-year cumulative return comparison across all five banks</li>
+          <li>Built with Pandas and Matplotlib for clean, reproducible output</li>
+        </ul>
+        <a href="https://github.com/YuvrrajRajput/canadian-bank-stock-analyzer" target="_blank" class="project-link">
+          View on GitHub &#8594;
+        </a>
       </div>
-
-      <!-- Project 2 -->
-      <div class="project-card reveal">
-        <!-- REPLACE the placeholder below with an <img> tag once you have a screenshot -->
-        <!-- Example: <img src="images/bank-analyzer-preview.png" alt="Canadian Bank Stock Analyzer" class="project-img" /> -->
-        <img src="bankanalyzer.png" alt="Canadian Bank Stock Analyzer" class="project-img" />
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Pandas</span>
-            <span class="tag">yfinance</span>
-          </div>
-          <h3 class="project-title">Canadian Bank Stock Analyzer</h3>
-          <p class="project-desc">
-            A Python-based financial data tool that pulls live stock data for Canada's Big Five banks, performs comparative analysis, and visualises key metrics.
-          </p>
-          <ul class="project-bullets">
-            <li>Live data retrieval via yfinance for RBC, TD, Scotiabank, BMO, and CIBC</li>
-            <li>Correlation matrix, returns analysis, and price trend visualisation</li>
-            <li>Built with Pandas and Matplotlib for clean, reproducible output</li>
-          </ul>
-          <a href="https://github.com/YuvrrajRajput/canadian-bank-stock-analyzer" target="_blank" class="project-link">
-            View on GitHub &#8594;
-          </a>
-        </div>
-      </div>
-
     </div>
-  </section>
+
+    <!-- Project 2: DCF Valuation Model -->
+    <div class="project-card reveal">
+      <img src="dcf.png" alt="Coca-Cola DCF Valuation Model" class="project-img" />
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag">Excel</span>
+          <span class="tag">DCF</span>
+          <span class="tag">Valuation</span>
+        </div>
+        <h3 class="project-title">Coca-Cola DCF Valuation Model</h3>
+        <p class="project-desc">
+          A discounted cash flow valuation model built in Excel to estimate the intrinsic value of Coca-Cola, incorporating WACC, terminal value, and sensitivity analysis.
+        </p>
+        <ul class="project-bullets">
+          <li>WACC calculated at 6.8% with implied share price of $41.60</li>
+          <li>Multi-scenario sensitivity analysis on growth and discount rate assumptions</li>
+          <li>Full financial statement inputs with clearly structured forecast assumptions</li>
+        </ul>
+        <a href="https://github.com/YuvrrajRajput/coca-cola-dcf-model" target="_blank" class="project-link">
+          View on GitHub &#8594;
+        </a>
+      </div>
+    </div>
+
+    <!-- Project 3: Revenue and Margin Driver Analysis -->
+    <div class="project-card reveal">
+      <img src="margindriver.png" alt="Coca-Cola Revenue and Margin Driver Analysis" class="project-img" />
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag">Excel</span>
+          <span class="tag">Financial Analysis</span>
+          <span class="tag">Modelling</span>
+        </div>
+        <h3 class="project-title">Coca-Cola Revenue &amp; Margin Driver Analysis</h3>
+        <p class="project-desc">
+          A detailed breakdown of Coca-Cola's revenue and profitability drivers, identifying the key levers behind margin performance across segments and time periods.
+        </p>
+        <ul class="project-bullets">
+          <li>Segment-level revenue decomposition across multiple reporting periods</li>
+          <li>Gross, operating, and net margin trend analysis</li>
+          <li>Driver-based framework isolating volume, pricing, and cost dynamics</li>
+        </ul>
+        <a href="https://github.com/YuvrrajRajput/coca-cola-revenue-margin-driver-analysis-2015-2024" target="_blank" class="project-link">
+          View on GitHub &#8594;
+        </a>
+      </div>
+    </div>
+
+    <!-- Project 4: Superstore Sales Analysis -->
+    <div class="project-card reveal">
+      <img src="superstore.png" alt="Superstore Sales Analysis" class="project-img" />
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag">Excel</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+        </div>
+        <h3 class="project-title">Superstore Sales Analysis</h3>
+        <p class="project-desc">
+          A full end-to-end analytics project built in Excel and Power BI, transforming raw transactional data into an interactive executive dashboard.
+        </p>
+        <ul class="project-bullets">
+          <li>Dynamic Excel dashboard using XLOOKUP and pivot tables</li>
+          <li>Power BI report with custom DAX measures and drill-through navigation</li>
+          <li>Segment, region, and product-level performance breakdown</li>
+        </ul>
+        <a href="https://github.com/YuvrrajRajput/superstore-sales-analysis" target="_blank" class="project-link">
+          View on GitHub &#8594;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <div style="padding: 0 6vw;"><div class="divider"></div></div>
 
