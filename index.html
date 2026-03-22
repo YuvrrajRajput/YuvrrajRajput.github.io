@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yuvrraj Rajput — Finance & Data Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface-2: #1a2236;
+      --border: rgba(255,255,255,0.07);
+      --gold: #c9a84c;
+      --gold-light: #e2c97e;
+      --text: #e8edf5;
+      --muted: #7a8ba0;
+      --accent: #3b82f6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 6vw;
+      background: rgba(10,14,23,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 6vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      right: 18vw;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    }
+
+    .hero-tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1.05;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s forwards;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: var(--muted);
+      max-width: 480px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.65s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #0a0e17;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 6vw;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.9s forwards;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 7rem 6vw;
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 7rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .stat-card:hover { border-color: var(--gold); }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,0.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      background: var(--surface-2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Placeholder for when no screenshot is provided */
+    .project-img-placeholder {
+      width: 100%;
+      height: 220px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-body {
+      padding: 1.75rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 3px;
+      background: rgba(201,168,76,0.1);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
+    }
+
+    .project-bullets {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-bullets li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+
+    .project-bullets li::before {
+      content: '→';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover { gap: 0.65rem; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover { border-color: rgba(201,168,76,0.35); }
+
+    .skill-group-title {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .skill-list li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .contact-text h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-text p {
+      color: var(--muted);
+      max-width: 400px;
+      font-size: 0.95rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .contact-item:hover { color: var(--gold); }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 6vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .contact-inner { flex-direction: column; padding: 2.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Yuvrraj Rajput</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid-line"></div>
+    <p class="hero-tag">Finance &amp; Data Analytics</p>
+    <h1 class="hero-name">Yuvrraj<br /><em>Rajput</em></h1>
+    <p class="hero-sub">
+      Honours Economics student at McMaster University, building at the intersection of financial analysis and data. Targeting analyst roles at Canada's leading financial institutions.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://linkedin.com/in/YuvrrajRajput" target="_blank" class="btn btn-outline">LinkedIn</a>
+      <a href="https://github.com/YuvrrajRajput" target="_blank" class="btn btn-outline">GitHub</a>
+    </div>
+    <span class="hero-scroll">Scroll to explore</span>
+  </section>
+
+  <div style="padding: 0 6vw;"><div class="divider"></div></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">Background</p>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          I'm a final-year <strong>Honours Economics student with a Business minor</strong> at McMaster University, with a focus on financial analysis, risk, and data-driven decision making.
+        </p>
+        <p>
+          I'm currently pursuing the <strong>CFA Level 1</strong> and building a portfolio of applied finance and analytics projects that reflect the tools used in real analyst roles at Canada's major banks.
+        </p>
+        <p>
+          My projects are built around advice from industry professionals, using Excel, Python, and Power BI to analyse real financial data and surface actionable insights.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Portfolio Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">CFA</div>
+          <div class="stat-label">Level 1 Candidate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Core Tool Sets</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">BAY<br/>ST.</div>
+          <div class="stat-label">Target Market</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding: 0 6vw;"><div class="divider"></div></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">Work</p>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card reveal">
+        <!-- REPLACE the placeholder below with an <img> tag once you have a screenshot -->
+        <!-- Example: <img src="images/superstore-preview.png" alt="Superstore Sales Analysis" class="project-img" /> -->
+        <div class="project-img-placeholder">Superstore Sales Analysis</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Excel</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">DAX</span>
+          </div>
+          <h3 class="project-title">Superstore Sales Analysis</h3>
+          <p class="project-desc">
+            A full end-to-end sales analytics project built in Excel and Power BI, transforming raw transactional data into an interactive executive dashboard.
+          </p>
+          <ul class="project-bullets">
+            <li>Dynamic Excel dashboard using XLOOKUP and pivot tables</li>
+            <li>Power BI report with custom DAX measures and drill-through navigation</li>
+            <li>Segment, region, and product-level performance breakdown</li>
+          </ul>
+          <a href="https://github.com/YuvrrajRajput" target="_blank" class="project-link">
+            View on GitHub &#8594;
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reveal">
+        <!-- REPLACE the placeholder below with an <img> tag once you have a screenshot -->
+        <!-- Example: <img src="images/bank-analyzer-preview.png" alt="Canadian Bank Stock Analyzer" class="project-img" /> -->
+        <div class="project-img-placeholder">Canadian Bank Stock Analyzer</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">yfinance</span>
+          </div>
+          <h3 class="project-title">Canadian Bank Stock Analyzer</h3>
+          <p class="project-desc">
+            A Python-based financial data tool that pulls live stock data for Canada's Big Five banks, performs comparative analysis, and visualises key metrics.
+          </p>
+          <ul class="project-bullets">
+            <li>Live data retrieval via yfinance for RBC, TD, Scotiabank, BMO, and CIBC</li>
+            <li>Correlation matrix, returns analysis, and price trend visualisation</li>
+            <li>Built with Pandas and Matplotlib for clean, reproducible output</li>
+          </ul>
+          <a href="https://github.com/YuvrrajRajput" target="_blank" class="project-link">
+            View on GitHub &#8594;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div style="padding: 0 6vw;"><div class="divider"></div></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">Toolkit</p>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <p class="skill-group-title">Data &amp; Analysis</p>
+        <ul class="skill-list">
+          <li>Microsoft Excel (XLOOKUP, Pivot Tables)</li>
+          <li>Python (Pandas, yfinance, Matplotlib)</li>
+          <li>Power BI (DAX, Drill-through)</li>
+          <li>Financial Modelling</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-title">Finance</p>
+        <ul class="skill-list">
+          <li>DCF Valuation</li>
+          <li>Revenue &amp; Margin Analysis</li>
+          <li>Equity Research</li>
+          <li>CFA Level 1 Candidate</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-title">Certifications</p>
+        <ul class="skill-list">
+          <li>Microsoft Excel (LinkedIn Learning)</li>
+          <li>Power BI (LinkedIn Learning)</li>
+          <li>Python for Data Analysis</li>
+          <li>CFA Institute Candidate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding: 0 6vw;"><div class="divider"></div></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner reveal">
+      <div class="contact-text">
+        <h2>Let's Connect</h2>
+        <p>
+          I'm actively seeking internship and entry-level analyst opportunities at Canadian financial institutions. If you'd like to connect or discuss my work, reach out directly.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="contact-item">
+          <span class="contact-icon">✉</span>
+          your@email.com
+        </a>
+        <a href="https://linkedin.com/in/YuvrrajRajput" target="_blank" class="contact-item">
+          <span class="contact-icon">in</span>
+          linkedin.com/in/YuvrrajRajput
+        </a>
+        <a href="https://github.com/YuvrrajRajput" target="_blank" class="contact-item">
+          <span class="contact-icon">gh</span>
+          github.com/YuvrrajRajput
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Yuvrraj Rajput</p>
+    <p>McMaster University — Honours Economics</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
